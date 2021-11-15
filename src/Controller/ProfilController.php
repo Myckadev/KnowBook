@@ -57,6 +57,10 @@ class ProfilController extends AbstractController
      */
     public function delReview(Review $review, EntityManagerInterface $entityManager){
 
+        if($this->getUser()->getId() != $review->getAuthor()->getId()){
+            return $this->redirectToRoute("AppProfilReviews");
+        }
+
         $entityManager->remove($review);
         $entityManager->flush();
 
@@ -94,6 +98,10 @@ class ProfilController extends AbstractController
      * @Route("/profil/delblog/{id}", name="AppDelBlog")
      */
     public function delBlog(BlogWeb $blogWeb, EntityManagerInterface $entityManager){
+
+        if($this->getUser()->getId() != $blogWeb->getUser()->getId()){
+            return $this->redirectToRoute("AppProfilBlog");
+        }
 
         $entityManager->remove($blogWeb);
         $entityManager->flush();

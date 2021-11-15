@@ -3,10 +3,31 @@
 {% block title %}{{ parent() }} Modification mot de passe{% endblock %}
 
 {% block body %}
-    <h1>Reset your password</h1>
 
     {{ form_start(resetForm) }}
-        {{ form_row(resetForm.plainPassword) }}
-        <button class="btn btn-primary">Changer le mot de passe</button>
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <div class="login100-form validate-form" method="post"><span class="login100-form-title">Choisir un nouveau mot de passe</span>
+                <div class="wrap-input100 validate-input">
+                    {{ form_row(resetForm.plainPassword.first, {attr: {class: 'form-control input100', placeholder: 'Nouveau mot de passe'}, label: ' '}) }}
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="wrap-input100 validate-input">
+                    {{ form_row(resetForm.plainPassword.second, {attr: {class: 'form-control input100', placeholder: 'Répetez le nouveau mot de passe'}, label: ' '}) }}
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="container-login100-form-btn">
+                    <button class="login100-form-btn" type="submit">
+                        Valider
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     {{ form_end(resetForm) }}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('logasset/login.css') }}">
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 {% endblock %}
