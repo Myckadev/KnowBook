@@ -54,7 +54,7 @@
     <header>
         <h1 class="logo" style="color: white">KnowBook</h1>
         <nav>
-            <ul class="navLink">
+            <ul class="navLink" id="menu">
                 {% if not app.user %}
                     <li><a href="{{ path('AppHome') }}">Accueil</a></li>
                     <li><a href="{{ path('AppRecentBlog') }}">Blog Récent</a></li>
@@ -69,6 +69,9 @@
                 {% endif %}
             </ul>
         </nav>
+        <div id="menu-button" class="close">
+
+        </div>
         <a class="btn" href="{{ path('AppContact') }}"><button>Contactez-nous</button></a>
     </header>
     {% block body %}
@@ -76,6 +79,15 @@
 </section>
 
 <script src="{{ asset('script.js') }}"></script>
+<script>
+    let menuButton = document.querySelector('#menu-button');
+    let menu = document.querySelector('#menu');
 
+    // show or hide
+    menuButton.addEventListener('click',function(){
+        menu.classList.toggle('show-menu');
+        menuButton.classList.toggle('close');
+    });
+</script>
 </body>
 </html>

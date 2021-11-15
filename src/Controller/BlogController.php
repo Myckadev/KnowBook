@@ -10,6 +10,8 @@ use App\Repository\BlogWebRepository;
 use App\Repository\ReviewRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,13 +21,40 @@ class BlogController extends AbstractController
     /**
      * @Route("/", name="AppHome")
      */
-    public function home(BlogWebRepository $blogWebRepository): Response
+    public function home(): Response
+    {
+        return $this->render('home/appHome.html.twig');
+    }
+
+    /**
+     * @Route("/handleSearch", name="handleSearch")
+     */
+    public function handleSearch(Request $request, BlogWebRepository $repo)
+    {
+        $query = $request->request->get('form')['query'];
+        if($query) {
+            $blogs = $repo->findArticlesByName($query);
+        }
+        return $this->render('home/appHome.html.twig', [
+            'blogs' => $blogs
+        ]);
+    }
+
+    public function searchBar(): Response
     {
 
-        $listBlog = $blogWebRepository->findAll();
-        return $this->render('home/appHome.html.twig', [
-            'listBlog'=>$listBlog
+        $form = $this->createFormBuilder()
+            ->setAction($this->generateUrl('handleSearch'))
+            ->add('query', TextType::class, [
+                'label'=>false,
+            ])
+            ->add('recherche', SubmitType::class)
+            ->getForm();
+
+        return $this->render('search/searchBar.html.twig', [
+            'form' => $form->createView()
         ]);
+
     }
 
 
@@ -68,8 +97,6 @@ class BlogController extends AbstractController
 
         $form = $this->createForm(ReviewFormType::class);
         $form->handleRequest($request);
-
-
 
         if($form->isSubmitted() && $form->isValid()){
             $list = $request->get('review_form');

@@ -22,6 +22,9 @@ class ProfilController extends AbstractController
      */
     public function profilSettings(){
 
+
+
+
         return $this->render('profil/settings.html.twig', [
 
         ]);

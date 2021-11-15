@@ -19,6 +19,27 @@ class BlogWebRepository extends ServiceEntityRepository
         parent::__construct($registry, BlogWeb::class);
     }
 
+    public function findArticlesByName(string $query)
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb
+            ->where(
+                $qb->expr()->andX(
+                    $qb->expr()->orX(
+                        $qb->expr()->like('p.title', ':query'),
+                        $qb->expr()->like('p.content', ':query'),
+                    ),
+                    $qb->expr()->isNotNull('p.date')
+                )
+            )
+            ->setParameter('query', '%' . $query . '%')
+            ->setMaxResults(8);
+        ;
+        return $qb
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return BlogWeb[] Returns an array of BlogWeb objects
     //  */

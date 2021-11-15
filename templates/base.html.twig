@@ -17,35 +17,45 @@
         {% endblock %}
     </head>
     <body>
-        <header>
-            <h1 class="logo" style="color: white">KnowBook</h1>
-            <nav>
-                <ul class="navLink">
-                    {% if not app.user %}
-                        <li><a href="{{ path('AppHome') }}">Accueil</a></li>
-                        <li><a href="{{ path('AppRecentBlog') }}">Blog Récent</a></li>
-                        <li><a href="{{ path('AppLogin') }}">Se connecter</a></li>
-                        <li><a href="{{ path('AppRegister') }}">S'enregistrer</a></li>
-                    {% else %}
-                        <li><a href="{{ path('AppHome') }}">Accueil</a></li>
-                        <li><a href="{{ path('AppRecentBlog') }}">Blog Récent</a></li>
-                        <li><a href="{{ path('AppCreateBlog') }}">Créer un Blog</a></li>
-                        <li><a href="{{ path('AppProfilSettings') }}">Profil</a></li>
-                        <li><a href="{{ path('AppLogout') }}">Se déconnecter</a></li>
-                    {% endif %}
-                </ul>
-            </nav>
-            <a class="btn" href="{{ path('AppContact') }}"><button>Contactez-nous</button></a>
-        </header>
+    <header>
+        <h1 class="logo" style="color: white">KnowBook</h1>
+        <nav>
+            <ul class="navLink" id="menu">
+                {% if not app.user %}
+                    <li><a href="{{ path('AppHome') }}">Accueil</a></li>
+                    <li><a href="{{ path('AppRecentBlog') }}">Blog Récent</a></li>
+                    <li><a href="{{ path('AppLogin') }}">Se connecter</a></li>
+                    <li><a href="{{ path('AppRegister') }}">S'enregistrer</a></li>
+                {% else %}
+                    <li><a href="{{ path('AppHome') }}">Accueil</a></li>
+                    <li><a href="{{ path('AppRecentBlog') }}">Blog Récent</a></li>
+                    <li><a href="{{ path('AppCreateBlog') }}">Créer un Blog</a></li>
+                    <li><a href="{{ path('AppProfilSettings') }}">Profil</a></li>
+                    <li><a href="{{ path('AppLogout') }}">Se déconnecter</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        <div id="menu-button" class="close">
+        </div>
+        <a class="btn" href="{{ path('AppContact') }}"><button>Contactez-nous</button></a>
+    </header>
         {% block body %}
         {% endblock %}
 
         {#
-            TODO recherche par Keywords
-            TODO RESPONSIVE (NAVBAR && REVIEW (Grossir le texte et réagnecé les éléments)
             TODO SETTINGS ACCOUNT
             TODO Page admin (gestion compte, gestion blog, gestion review)
         #}
     </body>
     <script src="{{ asset('script.js') }}"></script>
+    <script>
+        let menuButton = document.querySelector('#menu-button');
+        let menu = document.querySelector('#menu');
+
+        // show or hide
+        menuButton.addEventListener('click',function(){
+            menu.classList.toggle('show-menu');
+            menuButton.classList.toggle('close');
+        });
+    </script>
 </html>

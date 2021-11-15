@@ -34,7 +34,7 @@ header{
 
 .navLink>li {
     display: inline-block;
-    padding: 0px 20px;
+    padding: 0 20px;
 }
 
 .navLink>li>a{
@@ -55,4 +55,73 @@ button{
 
 button:hover{
     background-color: rgba(0,136,169,0.8);
+}
+
+@media screen  and (max-width: 1200px){
+
+    .header{
+        padding:0 12px;
+        position:fixed;
+        z-index:999;
+        width:100%;
+        max-width:480px;
+        background:#24252A;
+        box-sizing:border-box;
+        border-bottom:1px solid #fff;
+    }
+
+    ul,li{
+        display:block;
+    }
+    li{
+        height:50px;
+        line-height:50px;
+        padding:0 12px;
+        border-bottom:1px solid #777;
+        background:#24252A;
+    }
+
+    #menu-button{
+        position:absolute;
+        top:0;
+        right:0;
+        width:50px;
+        height:50px;
+        overflow:hidden;
+        background:#fff;
+        color:#24252A;
+        line-height:50px;
+        text-align:center;
+        font-size:40px;
+        cursor:pointer;
+        transition:all .5s;
+    }
+
+
+    #menu-button::after{
+        content:'×';
+    }
+    #menu-button.close{
+        color:#fff;
+        background:#24252A;
+    }
+    #menu-button.close::after{
+        content:'≡';
+    }
+
+    #menu{
+        transition:transform .5s;
+        position:absolute;
+        width:100%;
+        max-width:300px;
+        transform:translateY(-1200px);
+
+    }
+    #menu.show-menu{
+        transform:translateY(51px);
+    }
+
+    .main{
+        padding:62px 12px 12px 12px;
+    }
 }

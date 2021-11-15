@@ -1,0 +1,38 @@
+
+    <div style="width: 70%; margin: 0 auto">
+    {{ form_start(form) }}
+        <div style="display: flex; justify-content: space-between">
+            <div>
+            {{ form_row(form.recherche, {attr: {class: 'search_submit'}}) }}
+            </div>
+            <div style="width: 100%;">
+            {{ form_row(form.query, {attr: {class: 'search', placeholder: 'Qu\'est ce que vous rechercher ?'}}) }}
+            </div>
+        </div>
+
+    {{ form_end(form) }}
+    </div>
+
+
+
+<style>
+    .search{
+        display: block;
+        width: 100%;
+        height: 50px;
+        margin: 0 auto;
+        padding: 0 10em;
+        background: #FFFFFF;
+        border: 1px solid #D3D3D3;
+        box-sizing: border-box;
+        border-radius: 77px;
+        outline: none;
+    }
+
+    .search_submit{
+        height: 50px;
+        position: absolute;
+        left: 15%;
+    }
+</style>
+
