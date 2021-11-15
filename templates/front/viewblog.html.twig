@@ -37,47 +37,75 @@
             <div style="background: #fff;border-radius: 10px; overflow: hidden; margin-top: 20px">
                 <div style="width: 80%; margin: 0 auto;">
                     <h1>Liste des avis</h1>
-                    {% for review in listReview %}
-                        <div class="wrap-input100 validate-input" style="margin-bottom: 15px;">
-                            <div style="; display: flex; justify-content: space-between; font-size: 15px; line-height: 1.5; color: #666666; width: 80%;
-background: #e6e6e6; height: 50px; border-radius: 25px; padding: 15px 30px 0 68px">
-                                <span>{{ review.content }} </span><span>{{ review.date.format("d/m/Y - ") }} {{ review.author.username }}</span>
-                            </div>
-                            <div>
+                    {% if listReview is not empty %}
+                        {% for review in listReview %}
+                            <div class="wrap-input100 validate-input" style="margin-bottom: 15px;">
+                                <div style="; display: flex; justify-content: space-between; font-size: 15px; line-height: 1.5; color: #666666; width: 80%;
+    background: #e6e6e6; height: 50px; border-radius: 25px; padding: 15px 30px 0 68px">
+                                    <span>{{ review.content }} </span><span>{{ review.date.format("d/m/Y - ") }} {{ review.author.username }}</span>
+                                </div>
+                                <div>
 
-                            </div>
-                            <div>
+                                </div>
+                                <div>
 
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div style="background: #fff;border-radius: 10px; overflow: hidden; margin-top: 20px; margin-bottom: 20px">
+                            <div style="width: 100%; margin: 0 auto;">
+                                <div style="margin-bottom: 20px">
+                                    <div class="login100-form validate-form">
+                                        <div class="wrap-input100 validate-input" style="margin-bottom: 15px">
+                                            <h3>Pas encore d'avis sur ce blog</h3>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    {% endfor %}
+                    {% endif %}
                 </div>
             </div>
 
             {#         POSTER SON AVIS #}
 
             {% if app.user %}
-            <div style="background: #fff;border-radius: 10px; overflow: hidden; margin-top: 20px; margin-bottom: 20px">
-                <div style="width: 80%; margin: 0 auto;">
-                    <h1>Poster un avis</h1>
-                    <div style="margin-bottom: 20px">
-                        {{ form_start(reviewForm) }}
-                            <div class="login100-form validate-form" method="post">
-                                <div class="wrap-input100 validate-input" style="margin-bottom: 15px">
-                                    {{ form_row(reviewForm.content, {attr: {class: 'reviewInput',  placeholder: 'Laissez votre avis'}}) }}
-                                    <span class="focus-input100"></span>
-                                </div>
-                                <div class="container-login100-form-btn">
-                                    <button class="login100-form-btn" type="submit">
-                                        Envoyer
-                                    </button>
+                {% if blog.user.id != app.user.id %}
+                    <div style="background: #fff;border-radius: 10px; overflow: hidden; margin-top: 20px; margin-bottom: 20px">
+                        <div style="width: 80%; margin: 0 auto;">
+                            <h1>Poster un avis</h1>
+                            <div style="margin-bottom: 20px">
+                                {{ form_start(reviewForm) }}
+                                    <div class="login100-form validate-form" method="post">
+                                        <div class="wrap-input100 validate-input" style="margin-bottom: 15px">
+                                            {{ form_row(reviewForm.content, {attr: {class: 'reviewInput',  placeholder: 'Laissez votre avis'}}) }}
+                                            <span class="focus-input100"></span>
+                                        </div>
+                                        <div class="container-login100-form-btn">
+                                            <button class="login100-form-btn" type="submit">
+                                                Envoyer
+                                            </button>
+                                        </div>
+                                    </div>
+                                {{ form_end(reviewForm) }}
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div style="background: #fff;border-radius: 10px; overflow: hidden; margin-top: 20px; margin-bottom: 20px">
+                        <div style="width: 80%; margin: 0 auto;">
+                            <h1>Poster un avis</h1>
+                            <div style="margin-bottom: 20px">
+                                <div class="login100-form validate-form">
+                                    <div class="wrap-input100 validate-input" style="margin-bottom: 15px">
+                                        <h3>Vous ne pouvez pas mettre d'avis sur votre propre blog</h3>
+                                    </div>
                                 </div>
                             </div>
-                        {{ form_end(reviewForm) }}
+                        </div>
                     </div>
-
-                </div>
-            </div>
+                {% endif%}
             {% else %}
                 <a href="{{ path('AppLogin') }}"><button style="margin-top: 20px">Connectez vous pour postez un avis</button></a>
             {% endif %}

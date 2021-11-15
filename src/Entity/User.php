@@ -13,6 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @method string getUserIdentifier()
  * @UniqueEntity(fields={"email"}, message="Un compte possède déjà cet email")
+ * @UniqueEntity(fields={"username"}, message="Un compte possède déjà cet username")
  */
 class User implements UserInterface
 {

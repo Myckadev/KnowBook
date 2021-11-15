@@ -92,7 +92,7 @@ class BlogController extends AbstractController
             'blog'=>$blog,
             'listBlog'=> $listBlogs,
             'reviewForm'=>$form->createView(),
-            'listReview' => $repository->findBy([], ["date"=> "DESC"], 5)
+            'listReview' => $repository->findBy(["blogWeb"=> $blog->getId()], ["date"=> "DESC"], 5)
         ]);
     }
 

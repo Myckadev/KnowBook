@@ -45,7 +45,7 @@ class ProfilController extends AbstractController
      */
     public function profilReviews(ReviewRepository $repository){
 
-        $listReviews = $repository->findAll();
+        $listReviews = $repository->findBy(['author'=>$this->getUser()], ["date"=> "DESC"]);
 
         return $this->render('profil/reviews.html.twig', [
             'listReview' => $listReviews
