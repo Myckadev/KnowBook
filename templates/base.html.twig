@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}KnowBook | {% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset('style.css') }}">
         {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
+        <link rel="stylesheet" href="{{ asset('main/main.css') }}" type="text/css">
+
         {% block stylesheets %}
             {#{{ encore_entry_link_tags('app') }}#}
         {% endblock %}
@@ -14,6 +17,35 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <header>
+            <h1 class="logo" style="color: white">KnowBook</h1>
+            <nav>
+                <ul class="navLink">
+                    {% if not app.user %}
+                        <li><a href="{{ path('AppHome') }}">Accueil</a></li>
+                        <li><a href="{{ path('AppRecentBlog') }}">Blog Récent</a></li>
+                        <li><a href="{{ path('AppLogin') }}">Se connecter</a></li>
+                        <li><a href="{{ path('AppRegister') }}">S'enregistrer</a></li>
+                    {% else %}
+                        <li><a href="{{ path('AppHome') }}">Accueil</a></li>
+                        <li><a href="{{ path('AppRecentBlog') }}">Blog Récent</a></li>
+                        <li><a href="{{ path('AppCreateBlog') }}">Créer un Blog</a></li>
+                        <li><a href="{{ path('AppProfilSettings') }}">Profil</a></li>
+                        <li><a href="{{ path('AppLogout') }}">Se déconnecter</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+            <a class="btn" href="{{ path('AppContact') }}"><button>Contact</button></a>
+        </header>
+        {% block body %}
+        {% endblock %}
+
+        {#
+            TODO Review UD
+            TODO liste review de l'utilisateur
+            TODO recherche par Keywords
+            TODO RESPONSIVE (NAVBAR && REVIEW (GRossir le texte et réagnecé les éléments)
+        #}
     </body>
+    <script src="{{ asset('script.js') }}"></script>
 </html>

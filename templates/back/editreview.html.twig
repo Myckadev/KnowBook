@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} Éditition d'avis
+{% endblock %}
+
+{% block body %}
+
+    {{ form_start(form) }}
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <div class="login100-form validate-form" method="post"><span class="login100-form-title">Éditez votre review</span>
+                <div class="wrap-input100 validate-input">
+                    {{ form_row(form.content, {attr: {class: 'form-control input100'}}) }}
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="container-login100-form-btn">
+                    <button class="login100-form-btn" type="submit">
+                        Envoyer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('logasset/login.css') }}">
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
+
+
+

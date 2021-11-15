@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} Contact{% endblock %}
+
+{% block body %}
+
+
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <form class="login100-form validate-form" method="post"><span class="login100-form-title">Contactez-nous</span>
+                <div class="wrap-input100 validate-input">
+                    <input type="email" name="email" id="inputEmail" class="form-control input100" autocomplete="email"  placeholder="Email" required>
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="wrap-input100 validate-input">
+                    <input type="text" name="subject" id="subject" class="form-control input100" placeholder="Sujet" required>
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="wrap-input100 validate-input" data-validate="Password is required">
+                   <textarea rows="15" name="content" class="form-control input100" placeholder="Votre demande ici" required style="height: 150px; padding-top: 15px; resize: none"></textarea>
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="container-login100-form-btn">
+                    <button class="login100-form-btn" type="submit">
+                        Envoyer
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('logasset/login.css') }}">
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
+

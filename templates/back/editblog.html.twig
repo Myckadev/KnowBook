@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} Éditer un blog{% endblock %}
+
+{% block body %}
+
+    {{ form_start(blogWeb) }}
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <div class="login100-form validate-form" method="post"><span class="login100-form-title">Créer votre Blog</span>
+                <div class="wrap-input100 validate-input">
+                    {{ form_row(blogWeb.title, {attr: {class: 'form-control input100', placeholder: 'Titre'}}) }}
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="wrap-input100 validate-input">
+                    {{ form_row(blogWeb.description, {attr: {class: 'form-control input100', placeholder: 'Description (120 caractères max)'}}) }}
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="wrap-input100 validate-input">
+                    {{ form_row(blogWeb.content, {attr: {class: 'form-control input100'}}) }}
+                    <span class="focus-input100"></span>
+                </div>
+                <div class="container-login100-form-btn">
+                    <button class="login100-form-btn" type="submit">
+                        Envoyer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(blogWeb) }}
+
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('logasset/login.css') }}">
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
+
+

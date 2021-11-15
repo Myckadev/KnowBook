@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!-- Created by CodingLab |www.youtube.com/c/CodingLabYT-->
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ asset('style.css') }}">
+    <title>{% block title %}KnowBook | {% endblock %}</title>
+    <!-- Boxicons CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{{ asset('main/main.css') }}" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="logo-details">
+        <div class="logo_name">  KnowBook | Profil</div>
+        <i class='bx bx-menu' id="btn" ></i>
+    </div>
+    <ul class="nav-list">
+        <li>
+            <a href="{{ path('AppProfilBlog') }}">
+                <i class='bx bx-user' ></i>
+                <span class="links_name">Vos blogs</span>
+            </a>
+            <span class="tooltip">Vos blogs</span>
+        </li>
+        <li>
+            <a href="{{ path('AppProfilReviews') }}">
+                <i class='bx bx-chat' ></i>
+                <span class="links_name">Vos avis</span>
+            </a>
+            <span class="tooltip">Vos avis</span>
+        </li>
+        <li>
+            <a href="{{ path('AppProfilSettings') }}">
+                <i class='bx bx-cog' ></i>
+                <span class="links_name">Paramètres</span>
+            </a>
+            <span class="tooltip">Paramètres</span>
+        </li>
+        <li class="profile">
+            <div class="profile-details">
+                <div class="name_job">
+                    <div class="name">Bloutime</div>
+                    <div class="job">Panel Profil</div>
+                </div>
+            </div>
+            <i class='bx bx-log-out' id="log_out" ></i>
+        </li>
+    </ul>
+</div>
+<section class="home-section">
+    <header>
+        <h1 class="logo" style="color: white">KnowBook</h1>
+        <nav>
+            <ul class="navLink">
+                {% if not app.user %}
+                    <li><a href="{{ path('AppHome') }}">Accueil</a></li>
+                    <li><a href="{{ path('AppRecentBlog') }}">Blog Récent</a></li>
+                    <li><a href="{{ path('AppLogin') }}">Se connecter</a></li>
+                    <li><a href="{{ path('AppRegister') }}">S'enregistrer</a></li>
+                {% else %}
+                    <li><a href="{{ path('AppHome') }}">Accueil</a></li>
+                    <li><a href="{{ path('AppRecentBlog') }}">Blog Récent</a></li>
+                    <li><a href="{{ path('AppCreateBlog') }}">Créer un Blog</a></li>
+                    <li><a href="{{ path('AppProfilSettings') }}">Profil</a></li>
+                    <li><a href="{{ path('AppLogout') }}">Se déconnecter</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        <a class="btn" href="{{ path('AppContact') }}"><button>Contact</button></a>
+    </header>
+    {% block body %}
+    {% endblock %}
+</section>
+
+<script src="{{ asset('script.js') }}"></script>
+
+</body>
+</html>

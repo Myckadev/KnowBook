@@ -1,0 +1,40 @@
+{% extends 'basePanel.html.twig' %}
+
+{% block title %}{{ parent() }} Vos blogs{% endblock %}
+
+{% block body %}
+
+    <h1 style="margin-top: 50px">Liste de vos Blogs</h1>
+    <div class="wrapper">
+        <div class="cols">
+            {% for blog in listBlog %}
+                <div class="col" ontouchstart="this.classList.toggle('hover');">
+                    <div class="container">
+                        <div class="front" style="background-image: url(https://unsplash.it/500/500/)">
+                            <div class="inner">
+                                <p>{{ blog.title }}</p>
+                                <span>{{ blog.user.username }}</span>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <div class="inner">
+                                <p>{{ blog.description }}</p>
+                                <p style="font-size: 15px; margin-top: 10px">{{ blog.date.format("d/m/Y - H:i") }}</p>
+                                <span style="display: flex; justify-content: space-around; margin-top: 10px">
+                                <button><a href="{{ path('AppEditBlog', {'id': blog.id}) }}">Éditer</a></button>
+                                <button><a href="{{ path('AppDelBlog', {'id': blog.id}) }}">Supprimer</a></button>
+                            </span>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+{% endblock %}
+
+
+

@@ -1,0 +1,126 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+
+    {#         CONTENU DU BLOG#}
+
+    <div style="display: flex; align-items: flex-start; padding-right: 50px;  margin-top: 50px">
+        <div style="margin-left: 10%; margin-right: auto; width: 70%;">
+            <div style="background: #fff;border-radius: 10px; overflow: hidden; margin-top: 20px">
+                <div style="width: 80%; margin: 0 auto;">
+                    <h1 style="margin-bottom: 50px">{{ blog.title }}</h1>
+
+                    {{ blog.content |raw }}
+                    <div style="display: flex; justify-content: space-between">
+                        <div style="display: flex; flex-direction: column; margin: 20px 0">
+                            <p>Créer par : <span style="color: grey">{{ blog.user.username }}</span>,</p>
+                            <p>le : <span style="color: grey">{{ blog.date|date("d/m/Y") }}</span></p>
+                            <p>à : <span style="color: grey">{{ blog.date | date ("H:m:s") }}</span></p>
+                        </div>
+                        {% if blog.isModify %}
+                        <div style="display: flex; flex-direction: column; margin: 20px 0">
+                            <p>Modifier par : <span style="color: grey">{{ blog.user.username }}</span>,</p>
+                            <p>le : <span style="color: grey">{{ blog.modifyDate|date("d/m/Y") }}</span></p>
+                            <p>à : <span style="color: grey">{{ blog.modifyDate | date ("H:m:s") }}</span></p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+{#         LISTE DES AVIS AFFICHAGE#}
+
+            <div style="background: #fff;border-radius: 10px; overflow: hidden; margin-top: 20px">
+                <div style="width: 80%; margin: 0 auto;">
+                    <h1>Liste des avis</h1>
+                    {% for review in listReview %}
+                        <div class="wrap-input100 validate-input" style="margin-bottom: 15px;">
+                            <div style="; display: flex; justify-content: space-between; font-size: 15px; line-height: 1.5; color: #666666; width: 80%;
+background: #e6e6e6; height: 50px; border-radius: 25px; padding: 15px 30px 0 68px">
+                                <span>{{ review.content }} </span><span>{{ review.date.format("d/m/Y - ") }} {{ review.author.username }}</span>
+                            </div>
+                            <div>
+
+                            </div>
+                            <div>
+
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            {#         POSTER SON AVIS #}
+
+            {% if app.user %}
+            <div style="background: #fff;border-radius: 10px; overflow: hidden; margin-top: 20px; margin-bottom: 20px">
+                <div style="width: 80%; margin: 0 auto;">
+                    <h1>Poster un avis</h1>
+                    <div style="margin-bottom: 20px">
+                        {{ form_start(reviewForm) }}
+                            <div class="login100-form validate-form" method="post">
+                                <div class="wrap-input100 validate-input" style="margin-bottom: 15px">
+                                    {{ form_row(reviewForm.content, {attr: {class: 'reviewInput',  placeholder: 'Laissez votre avis'}}) }}
+                                    <span class="focus-input100"></span>
+                                </div>
+                                <div class="container-login100-form-btn">
+                                    <button class="login100-form-btn" type="submit">
+                                        Envoyer
+                                    </button>
+                                </div>
+                            </div>
+                        {{ form_end(reviewForm) }}
+                    </div>
+
+                </div>
+            </div>
+            {% else %}
+                <a href="{{ path('AppLogin') }}"><button style="margin-top: 20px">Connectez vous pour postez un avis</button></a>
+            {% endif %}
+        </div>
+
+        {#         Affichage bloc récent #}
+
+        <div style="width: 300px;">
+            <h1>Blog récent</h1>
+            <div class="wrapper">
+                <div class="cols">
+                    {% for blog in listBlog %}
+                        <div class="col" ontouchstart="this.classList.toggle('hover');" style="width: 100%">
+                            <div class="container">
+                                <div class="front" style="background-image: url(https://unsplash.it/500/500/)">
+                                    <div class="inner">
+                                        <p>{{ blog.title }}</p>
+                                        <span>{{ blog.user.username }}</span>
+                                    </div>
+                                </div>
+                                <div class="back">
+                                    <div class="inner">
+                                        <p>{{ blog.description }}</p>
+                                        <p style="font-size: 15px; margin-top: 10px">{{ blog.date.format("d/m/Y - H:i") }}</p>
+                                        <span style="display: flex; justify-content: space-around; margin-top: 10px">
+                                            <button>
+                                                <a href="{{ path('AppViewBlog', {'id': blog.id}) }}">Consulter</a>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}
+
+
+
