@@ -4,20 +4,20 @@
 
 {% block body %}
 
-
+    {{ form_start(contactForm) }}
     <div class="container-login100">
         <div class="wrap-login100">
-            <form class="login100-form validate-form" method="post"><span class="login100-form-title">Contactez-nous</span>
+            <div class="login100-form validate-form"><span class="login100-form-title">Contactez-nous</span>
                 <div class="wrap-input100 validate-input">
-                    <input type="email" name="email" id="inputEmail" class="form-control input100" autocomplete="email"  placeholder="Email" required>
+                    {{ form_row(contactForm.email, {attr: {class: 'form-control input100', placeholder: 'Email'}}) }}
                     <span class="focus-input100"></span>
                 </div>
                 <div class="wrap-input100 validate-input">
-                    <input type="text" name="subject" id="subject" class="form-control input100" placeholder="Sujet" required>
+                    {{ form_row(contactForm.subject, {attr: {class: 'form-control input100', placeholder: 'Sujet'}}) }}
                     <span class="focus-input100"></span>
                 </div>
                 <div class="wrap-input100 validate-input" data-validate="Password is required">
-                   <textarea rows="15" name="content" class="form-control input100" placeholder="Votre demande ici" required style="height: 150px; padding-top: 15px; resize: none"></textarea>
+                    {{ form_row(contactForm.content, {attr: {class: 'form-control input100', placeholder: 'Votre message ici', style : 'height: 150px; resize: none; width: 100%; padding-top: 15px'}}) }}
                     <span class="focus-input100"></span>
                 </div>
                 <div class="container-login100-form-btn">
@@ -25,9 +25,10 @@
                         Envoyer
                     </button>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
+    {{ form_end(contactForm) }}
 
 {% endblock %}
 
