@@ -129,10 +129,14 @@ class ProfilController extends AbstractController
     /**
      * @Route("/profil/delblog/{id}", name="AppDelBlog")
      */
-    public function delBlog(BlogWeb $blogWeb, EntityManagerInterface $entityManager){
+    public function delBlog(BlogWeb $blogWeb, EntityManagerInterface $entityManager, ReviewRepository $repository){
 
         if($this->getUser()->getId() != $blogWeb->getUser()->getId()){
             return $this->redirectToRoute("AppProfilBlog");
+        }
+
+        foreach ( $repository->findBy(['blogWeb'=> $blogWeb->getId()]) as $review){
+            $entityManager->remove($review);
         }
 
         $entityManager->remove($blogWeb);

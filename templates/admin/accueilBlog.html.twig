@@ -1,0 +1,46 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}
+{{ parent() }} Panel Admin
+{% endblock %}
+
+{% block body %}
+
+    <h1 style="margin-top: 50px">Liste des blogs</h1>
+    <div class="wrapper">
+        <div class="cols">
+            {% if listBlog is not empty %}
+                {% for blog in listBlog %}
+                    <div class="col" ontouchstart="this.classList.toggle('hover');">
+                        <div class="container">
+                            <div class="front" style="background-image: url(https://unsplash.it/500/500/)">
+                                <div class="inner">
+                                    <p>{{ blog.title }}</p>
+                                    <span>{{ blog.user.username }}</span>
+                                </div>
+                            </div>
+                            <div class="back">
+                                <div class="inner">
+                                    <p>{{ blog.description }}</p>
+                                    <p style="font-size: 15px; margin-top: 10px">{{ blog.date.format("d/m/Y - H:i") }}</p>
+                                    <span style="display: flex; justify-content: space-around; margin-top: 10px">
+                                    <button><a href="{{ path('AppAdminDelBlog', {'id': blog.id}) }}">Supprimer</a></button>
+                                </span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div>
+                    <h1 style="margin-top: 50px; font-size: 20px">Plus aucun blog</h1>
+                    <a href="{{ path('AppCreateBlog') }}" style="margin: 0 auto"><button>Créer un blog</button></a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+
+
