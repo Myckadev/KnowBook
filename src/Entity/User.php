@@ -41,11 +41,13 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=BlogWeb::class, mappedBy="user")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $blogs;
 
     /**
      * @ORM\OneToMany(targetEntity=Review::class, mappedBy="author")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $reviews;
 

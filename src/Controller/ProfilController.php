@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\BlogWeb;
 use App\Entity\Review;
+use App\Entity\User;
 use App\Form\BlogWebEditType;
 use App\Form\ReviewEditFormType;
+use App\Form\UserSettingsFormType;
 use App\Repository\BlogWebRepository;
 use App\Repository\ReviewRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface;
 
 class ProfilController extends AbstractController
 {
@@ -20,15 +23,41 @@ class ProfilController extends AbstractController
     /**
      * @Route("/profil/settings", name="AppProfilSettings")
      */
-    public function profilSettings(){
+    public function profilSettings(Request $request, EntityManagerInterface $entityManager){
 
+        $form = $this->createForm(UserSettingsFormType::class, $this->getUser());
+        $form->handleRequest($request);
 
+        if($form->isSubmitted() && $form->isValid()){
 
+            $entityManager->persist($this->getUser());
+            $entityManager->flush();
+            return $this->redirectToRoute("AppProfilSettings");
+
+        }
 
         return $this->render('profil/settings.html.twig', [
-
+            'form'=>$form->createView()
         ]);
     }
+
+    /**
+     * @Route("/deluser/{id}", name="AppDeluser")
+     */
+    public function delUser(Request $request, EntityManagerInterface $entityManager, User $user, BlogWebRepository $blogWebRepository, ReviewRepository $repository, TokenStorageInterface $tokenStorage){
+
+
+        if($this->getUser()->getId() != $user->getId()){
+            return $this->redirectToRoute("AppHome");
+        }
+
+        $entityManager->remove($user);
+        $entityManager->flush();
+
+
+        return $this->redirectToRoute("AppHome");
+    }
+
 
     /**
      * @Route("/profil/vosblogs", name="AppProfilBlog")
