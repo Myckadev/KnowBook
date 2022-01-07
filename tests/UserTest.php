@@ -44,6 +44,7 @@ class UserTest extends WebTestCase
 
     public function testLoginWithBadCredentials(){
         $client = static::createClient();  //Générer un client
+
         $crawler = $client->request('GET', '/login'); //Envoyé le client sur la route login
         $form = $crawler->selectButton('Connexion')->form([  //tester de remplir le formulaire avec des données
             'email' => "test@test.fr",
